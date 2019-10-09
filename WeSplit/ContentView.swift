@@ -6,32 +6,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Form {
-            Section {
-                Group {
-                    Text("Hello World")
-                    Text("Hello World")
-                    Text("Hello World")
-                    Text("Hello World")
-                    Text("Hello World")
-                    Text("Hello World")
-                }
-                Group {
-                     Text("Hello World")
-                     Text("Hello World")
-                     Text("Hello World")
-                     Text("Hello World")
-                     Text("Hello World")
-                     Text("Hello World")
-                 }
-            }
-            Section {
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
-                Text("Hello World")
+        NavigationView {
+            Form {
                 Text("Hello World")
             }
+//            .navigationBarTitle(Text("SwiftUI"))
+//            .navigationBarTitle(Text("SwiftUI"), displayMode: .inline)
+            .navigationBarTitle("SwiftUI")
         }
     }
 }
