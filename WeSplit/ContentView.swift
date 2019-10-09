@@ -5,10 +5,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    let students = ["Alice", "Bob", "Eve"]
+    @State private var selectedStudent = 1
+
     var body: some View {
-        Form {
-            ForEach(0 ..< 100) { number in
-                Text("Row \(number)")
+        Picker("Select your student", selection: $selectedStudent) {
+            ForEach(0 ..< students.count) {
+                Text(self.students[$0])
             }
         }
     }
