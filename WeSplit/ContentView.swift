@@ -6,9 +6,13 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var checkAmount = ""
-    @State private var numberOfPeopleIndex = 0
+    @State private var numberOfPeopleText = "2"
     @State private var tipPercentage = 2
-    
+
+    private var numberOfPeople: Int {
+        return Int(numberOfPeopleText) ?? 2
+    }
+
     let tipPercentages = [10, 15, 20, 25, 0]
     
     var totalAmount: Double {
@@ -20,22 +24,29 @@ struct ContentView: View {
     }
 
     var totalPerPerson: Double {
-        let peopleCount = Double(numberOfPeopleIndex + 2)
-
-        return totalAmount / peopleCount
+        return totalAmount / Double(numberOfPeople)
     }
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Amount", text: $checkAmount)
-                        .keyboardType(.decimalPad)
-                    
-                    Picker("Number of people", selection: $numberOfPeopleIndex) {
-                        ForEach(2 ..< 100) {
-                            Text("\($0) people")
-                        }
+                    HStack {
+                        Text("Amount")
+                            .foregroundColor(.secondary)
+                        Spacer()
+                        TextField("$123.45", text: $checkAmount)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                    }
+
+                    HStack {
+                        Text("Number of people")
+                            .foregroundColor(.secondary)
+                        Spacer()
+                        TextField("e.g. 2", text: $numberOfPeopleText)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
                     }
                 }
                 
