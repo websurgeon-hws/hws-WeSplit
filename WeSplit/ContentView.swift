@@ -15,8 +15,12 @@ struct ContentView: View {
 
     let tipPercentages = [10, 15, 20, 25, 0]
     
+    var tipPercentageAmount: Double {
+        return Double(tipPercentages[tipPercentage])
+    }
+    
     var totalAmount: Double {
-        let tipSelection = Double(tipPercentages[tipPercentage])
+        let tipSelection = tipPercentageAmount
         let orderAmount = Double(checkAmount) ?? 0
         let tipValue = orderAmount / 100 * tipSelection
 
@@ -61,6 +65,7 @@ struct ContentView: View {
                 
                 Section(header: Text("Total")) {
                     Text("$\(totalAmount, specifier: "%.2f")")
+                        .totalTipModifier(tipAmount: tipPercentageAmount)
                 }
                 
                 Section(header: Text("Amount per person")) {
@@ -69,6 +74,20 @@ struct ContentView: View {
             }
             .navigationBarTitle("WeSplit")
         }
+    }
+}
+
+extension View {
+    func totalTipModifier(tipAmount: Double) -> some View {
+        return self.modifier(TotalTipModifier(tipAmount: tipAmount))
+    }
+}
+
+struct TotalTipModifier: ViewModifier {
+    let tipAmount: Double
+    
+    func body(content: Content) -> some View {
+        return content.foregroundColor(self.tipAmount == 0 ? .red : .black)
     }
 }
 
